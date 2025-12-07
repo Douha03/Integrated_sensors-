@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sofmedix – Capteurs Intégrés pour Robotique Médicale Souple</title>
-  <meta name="description" content="Revue interactive biomédicale sur les capteurs en robotique souple" />
+  <title>Sofmedix – Revue Biomédicale Interactive</title>
+  <meta name="description" content="Explorez les avancées en capteurs intégrés pour robotique médicale souple – une revue biomédicale interactive pour une chirurgie mini-invasive plus sûre et précise." />
 
   <style>
     :root {
@@ -129,11 +129,11 @@
       color: var(--primary);
     }
 
-    /* Sub-menu on hover */
+    /* Sub-menu on hover (to the left) */
     .sub-menu {
       position: absolute;
       top: 0;
-      left: 100%;
+      left: -100%; /* Changed to left side */
       background: white;
       border-radius: 16px;
       box-shadow: 0 15px 40px rgba(0,0,0,0.15);
@@ -194,6 +194,69 @@
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+
+    /* ==================== HOME PAGE (Page d'accueil) ==================== */
+    .home-hero {
+      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://www.mdpi.com/sensors/sensors-22-01085/article_deploy/html/images/sensors-22-01085-g001.png') no-repeat center/cover;
+      border-radius: 30px;
+      padding: 8rem 4rem;
+      text-align: center;
+      color: white;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .home-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(37, 99, 235, 0.4);
+      z-index: 1;
+    }
+
+    .home-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .home-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .home-description {
+      font-size: 1.4rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .home-cta {
+      padding: 1rem 2.5rem;
+      background: white;
+      color: var(--primary);
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .home-cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      background: var(--accent);
+      color: white;
     }
 
     /* ==================== CONTENT ==================== */
@@ -304,7 +367,6 @@
     @media (max-width: 992px) {
       .subsection { flex-direction: column; text-align: center; }
       .subsection img { max-width: 100%; width: 100%; }
-      .sub-menu { left: 0; top: 100%; }
     }
 
     @media (max-width: 640px) {
@@ -313,6 +375,8 @@
       .site-title { font-size: 1.8rem; }
       #section-btn, .print-btn { width: 100%; max-width: 300px; }
       .dropdown-menu { right: 50%; transform: translateX(50%); width: 90%; }
+      .home-hero { padding: 5rem 2rem; }
+      .home-title { font-size: 2.2rem; }
     }
   </style>
 </head>
@@ -397,13 +461,21 @@
 
     <!-- BARRE DE RECHERCHE -->
     <div class="search-container">
-      <input type="text" id="search-input" placeholder="Rechercher un terme (ex: capteur, PDMS, ablation...)">
+      <input type="text" id="search-input" placeholder="Rechercher un terme biomédical... (ex: ablation, PDMS)">
     </div>
 
-    <!-- CONTENU -->
-    <main class="content" id="main-content">
+    <!-- PAGE D'ACCUEIL (Home) -->
+    <div class="home-hero">
+      <div class="home-content">
+        <h1 class="home-title">Bienvenue sur Sofmedix</h1>
+        <p class="home-description">Découvrez les dernières avancées en capteurs intégrés pour la robotique médicale souple. Cette revue biomédicale interactive explore les innovations technologiques pour une chirurgie mini-invasive plus sûre, précise et bénéfique pour les patients. Plongez dans un monde de précision robotique et d'applications cliniques révolutionnaires.</p>
+        <button class="home-cta" onclick="document.getElementById('section-btn').click()">Commencer l'exploration</button>
+      </div>
+    </div>
 
-      <!-- 1. Introduction -->
+    <!-- CONTENU DES SECTIONS -->
+    <main class="content" id="main-content">
+      <!-- 1. Introduction clinique -->
       <div id="intro" class="section">
         <div class="section-title">
           <h2>1. Introduction clinique</h2>
@@ -442,7 +514,7 @@
         </div>
       </div>
 
-      <!-- 3. Capteurs biomédicaux -->
+      <!-- 3. Capteurs : fonctions biomédicales -->
       <div id="sensors" class="section">
         <div class="section-title">
           <h2>3. Capteurs : fonctions biomédicales</h2>
@@ -453,14 +525,14 @@
             <h3>Force / Pression</h3>
             <p>Contrôle les interactions pour prévenir lésions tissulaires en chirurgie cardiaque ou endoscopique.</p>
           </div>
-          <img src="https://www.mdpi.com/sensors/sensors-23-00874/article_deploy/html/images/sensors-23-00874-g001-550.jpg" alt="Force / Pression">
+          <img src="https://static.wixstatic.com/media/7c6410_3442dc01bbe24c9ebda39c075b1eb1c5~mv2.png/v1/fill/w_1199,h_675,al_c/7c6410_3442dc01bbe24c9ebda39c075b1eb1c5~mv2.png" alt="Force / Pression">
         </div>
         <div id="sensors-tactile" class="subsection">
           <div class="subsection-text">
             <h3>Tactile (Palpation)</h3>
             <p>Imite la palpation manuelle pour identifier tumeurs cachées, basé sur rigidité tissulaire altérée par cancer.</p>
           </div>
-          <img src="https://www.mdpi.com/sensors/sensors-22-07894/article_deploy/html/images/sensors-22-07894-g002.png" alt="Tactile (Palpation)">
+          <img src="https://www.mdpi.com/sensors/sensors-22-01085/article_deploy/html/images/sensors-22-01085-g001.png" alt="Tactile (Palpation)">
         </div>
         <div id="sensors-temperature" class="subsection">
           <div class="subsection-text">
@@ -493,7 +565,7 @@
         <div id="sensors-mecanique" class="subsection">
           <div class="subsection-text">
             <h3>Capteur mécanique</h3>
-            <p>Mesure les déformations et vibrations pour une navigation précise en milieux complexes, améliorant la stabilité et la précision des robots souples.</p>
+            <p>Capte les mouvements et déformations mécaniques pour une navigation robotique précise et sûre en environnement tissulaire variable.</p>
           </div>
           <img src="https://www.mdpi.com/sensors/sensors-21-05306/article_deploy/html/images/sensors-21-05306-g001.png" alt="Capteur mécanique">
         </div>
@@ -640,7 +712,7 @@
       document.getElementById('main-content').classList.add('show');
       if (subId) {
         const target = document.getElementById(subId);
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
