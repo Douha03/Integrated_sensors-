@@ -26,156 +26,194 @@
  }
  .container { max-width: 1400px; margin: 0 auto; padding: 2rem 1.5rem; }
 
- /* ==================== HEADER ==================== */
- header {
- display: flex;
- align-items: center;
- justify-content: space-between;
- flex-wrap: wrap;
- gap: 1rem;
- background: var(--highlight);
- padding: 1.5rem 2rem;
- border-radius: 20px;
- box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
- margin-bottom: 2.5rem;
- position: relative;
- }
- .header-left {
- display: flex;
- align-items: center;
- gap: 1.5rem;
- flex-wrap: wrap;
- }
- .logo {
- width: 80px;
- height: 80px;
- background: linear-gradient(135deg, var(--primary), var(--accent));
- border-radius: 20px;
- display: flex;
- align-items: center;
- justify-content: center;
- color: white;
- font-weight: 900;
- font-size: 32px;
- }
- .site-title {
- font-size: 2rem;
- color: #1e40af;
- font-weight: 800;
- }
- .subtitle {
- color: var(--muted);
- font-size: 1.1rem;
- margin-top: 0.3rem;
- }
+/* ==================== HEADER & MENU DÉROULANT – VERSION 2025 PRO ==================== */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: var(--highlight);
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+  margin-bottom: 2.5rem;
+  position: relative;
+}
 
- .header-right {
- display: flex;
- align-items: center;
- gap: 1rem;
- position: relative;
- }
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
 
- #section-btn {
- padding: 0.9rem 1.8rem;
- background: var(--accent);
- color: white;
- border: none;
- border-radius: 14px;
- font-weight: 600;
- cursor: pointer;
- transition: all 0.3s;
- }
- #section-btn:hover { background: var(--primary); }
+.logo {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 900;
+  font-size: 32px;
+}
 
- /* MENU DEROULANT */
- .dropdown-menu {
- position: absolute;
- top: calc(100% + 8px);
- right: 0;
- background: white;
- border-radius: 16px;
- box-shadow: 0 15px 40px rgba(0,0,0,0.15);
- padding: 0.8rem 0;
- min-width: 310px;
- display: none;
- z-index: 1000;
- }
- .dropdown-menu.show { display: block; animation: fadeIn 0.3s; }
+.site-title { font-size: 2rem; color: #1e40af; font-weight: 800; }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-top: 0.3rem; }
 
- .dropdown-item {
- padding: 0.9rem 1.8rem;
- color: var(--text);
- font-weight: 600;
- cursor: pointer;
- transition: all 0.2s;
- position: relative;
- white-space: nowrap;
- }
- .dropdown-item:hover {
- background: var(--highlight);
- color: var(--primary);
- }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
 
- /* SOUS-MENU très proche du menu principal */
- .sub-menu {
- position: absolute;
- top: 0;
- left: 100%;
- margin-left: 4px;
- background: white;
- border-radius: 16px;
- box-shadow: 0 15px 40px rgba(0,0,0,0.15);
- padding: 0.8rem 0;
- min-width: 290px;
- display: none;
- z-index: 1001;
- }
- 
- /* Tous les sous-menus s'affichent à gauche du menu principal */
- .dropdown-item .sub-menu {
- position: absolute;
- top: 0;
- left: auto;
- right: 100%;
- margin-right: 4px;
- margin-left: 0;
- background: white;
- border-radius: 16px;
- box-shadow: 0 15px 40px rgba(0,0,0,0.15);
- padding: 0.8rem 0;
- min-width: 290px;
- display: none;
- z-index: 1001;
- }
- .dropdown-item:hover > .sub-menu { display: block; }
+/* Bouton principal */
+#section-btn {
+  padding: 0.9rem 1.8rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1002;
+}
+#section-btn:hover { background: var(--primary); transform: translateY(-2px); }
 
- .sub-item {
- padding: 0.8rem 1.8rem;
- color: var(--text);
- cursor: pointer;
- transition: all 0.2s;
- }
- .sub-item:hover {
- background: var(--highlight);
- color: var(--primary);
- }
+/* MENU PRINCIPAL */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  padding: 0.9rem 0;
+  min-width: 320px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: all 0.28s ease;
+  z-index: 1001;
+}
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
 
- .print-btn {
- padding: 0.9rem 2rem;
- background: var(--primary);
- color: white;
- border: none;
- border-radius: 14px;
- font-weight: 600;
- cursor: pointer;
- transition: all 0.3s;
- }
- .print-btn:hover {
- transform: translateY(-3px);
- box-shadow: 0 12px 25px rgba(37, 99, 235,0.35);
- }
+/* Items du menu principal */
+.dropdown-item {
+  position: relative;
+  padding: 0.95rem 1.9rem;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  white-space: nowrap;
+}
+.dropdown-item:hover {
+  background: var(--highlight);
+  color: var(--primary);
+  padding-left: 2.2rem; /* léger décalage visuel au hover → très élégant */
+}
 
+/* Petite flèche à droite indiquant qu’il y a un sous-menu */
+.dropdown-item::after {
+  content: "→";
+  position: absolute;
+  right: 1.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: var(--muted);
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+.dropdown-item:has(.sub-menu)::after {
+  opacity: 1;
+}
+.dropdown-item:hover::after {
+  right: 1.4rem;
+  color: var(--primary);
+}
+
+/* ==================== SOUS-MENUS – VERSION PARFAITE ==================== */
+.dropdown-item .sub-menu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 2px;                    /* collé au maximum */
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  padding: 0.9rem 0;
+  min-width: 300px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+  transition: all 0.28s ease;
+  z-index: 1002;
+}
+
+/* Affichage au hover (avec délai invisible grâce au JS que je te donne après) */
+.dropdown-item:hover > .sub-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Items du sous-menu */
+.sub-item {
+  padding: 0.85rem 2rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.22s ease;
+  position: relative;
+}
+.sub-item:hover {
+  background: var(--highlight);
+  color: var(--primary);
+  padding-left: 2.4rem;
+}
+
+/* Sur mobile : on ouvre les sous-menus vers la gauche pour rester dans l’écran */
+@media (max-width: 992px) {
+  .dropdown-item .sub-menu {
+    left: auto;
+    right: 100%;
+    margin-left: 0;
+    margin-right: 2px;
+  }
+  .dropdown-menu {
+    right: 50%;
+    transform: translateX(50%);
+    width: 92vw;
+    max-width: 400px;
+  }
+}
+
+/* Bouton Imprimer */
+.print-btn {
+  padding: 0.9rem 2rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.print-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.4);
+}
  /* ==================== SEARCH BAR ==================== */
  .search-container {
  text-align: center;
@@ -728,6 +766,7 @@
  </script>
 </body>
 </html>
+
 
 
 
