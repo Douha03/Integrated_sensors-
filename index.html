@@ -1,265 +1,369 @@
-<!doctype html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Integrated Sensors for Soft Medical Robotics - Présentation</title>
-  <style>
-    :root{--accent:#0b6efd;--bg:#f6f8fb;--card:#ffffff;--muted:#6b7280;--glass: rgba(255,255,255,0.6)}
-    *{box-sizing:border-box;font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#eef3fb);color:#0f172a}
-    .wrap{max-width:1100px;margin:28px auto;padding:20px}
-    header{display:flex;gap:20px;align-items:center;margin-bottom:18px}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0053b3);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px}
-    h1{font-size:20px;margin:0}
-    p.lead{margin:4px 0 0;color:var(--muted)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoftMedix — Robots Médicaux Souples & Capteurs Intégrés</title>
+    <meta name="description" content="Recherche avancée sur les robots médicaux souples et l'intégration de capteurs biomimétiques pour la chirurgie de demain.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Clash+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
-    main{display:grid;grid-template-columns:280px 1fr;gap:18px}
-    nav.side{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 6px 20px rgba(12,17,43,0.06)}
-    nav.side button{display:block;width:100%;text-align:left;padding:10px;border-radius:8px;border:0;background:transparent;color:#0f172a;font-weight:600;margin-bottom:6px;cursor:pointer}
-    nav.side button.active{background:linear-gradient(90deg,rgba(11,110,253,0.08),rgba(6,80,184,0.04));color:var(--accent)}
-    .search{display:flex;margin-bottom:10px}
-    .search input{flex:1;padding:8px;border-radius:8px;border:1px solid #e6eef8}
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1e293b;
+            --card: #ffffff;
+            --border: rgba(0, 0, 0, 0.08);
+            --primary: #0284c7;
+            --primary-light: #0ea5e9;
+            --gray: #64748b;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --text: #e2e8f0;
+            --card: #1e293b;
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
 
-    section.card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(12,17,43,0.06)}
-    .section-title{display:flex;align-items:center;justify-content:space-between}
-    .section-title h2{font-size:18px;margin:0}
-    .section-title .sub{color:var(--muted);font-size:13px}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: all 0.4s ease;
+        }
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+        .logo {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        .theme-toggle:hover { background: var(--primary); color: white; }
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-    .tile{border-radius:10px;padding:12px;background:linear-gradient(180deg,var(--glass),#fff);border:1px solid rgba(15,23,42,0.04)}
-    .tile h3{margin:0;font-size:15px}
-    .tile p{margin:8px 0 0;color:var(--muted);font-size:14px}
+        .container { max-width: 1400px; margin: 0 auto; padding: 120px 2rem 4rem; }
 
-    .accordion{margin-top:12px}
-    .acc-item{border-radius:10px;overflow:hidden;border:1px solid rgba(11,110,253,0.08);background:transparent}
-    .acc-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer}
-    .acc-head h4{margin:0;font-size:15px}
-    .acc-body{padding:12px 14px;border-top:1px dashed rgba(11,110,253,0.06);background:var(--card);font-size:14px;color:var(--muted)}
+        h1, h2, h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; }
 
-    footer{margin-top:14px;text-align:right;color:var(--muted);font-size:13px}
+        .hero {
+            text-align: center;
+            padding: 100px 20px 120px;
+        }
+        .hero h1 {
+            font-size: 3.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 900px;
+            margin: 2rem auto;
+            color: var(--gray);
+        }
 
-    /* small screens */
-    @media (max-width:820px){main{grid-template-columns:1fr}nav.side{order:2}header{flex-direction:column;align-items:flex-start}footer{text-align:left}}
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+        }
+        .section-card {
+            background: var(--card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+        .section-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(2,132,199,0.15); }
 
-    /* subtle animations */
-    .fadeIn{animation:fadeIn .26s ease both}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+        .section-header {
+            padding: 1.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            font-size: 1.35rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            transition: transform 0.3s;
+        }
+        .section-card.open .section-header::after { transform: rotate(180deg); }
 
-    .btn{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:white;cursor:pointer}
-    .mutebtn{background:transparent;border:1px solid rgba(15,23,42,0.06);color:var(--muted)}
+        .subsections {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        .section-card.open .subsections {
+            max-height: 800px;
+            padding-top: 1rem;
+        }
+        .sub-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem 1.2rem;
+            margin: 0.7rem 0;
+            background: rgba(2,132,199,0.08);
+            border: none;
+            border-radius: 12px;
+            text-align: left;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .sub-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(8px);
+        }
 
-    .note{background:#fff8e8;border-left:4px solid #ffd166;padding:10px;border-radius:8px;color:#6b4b00}
-  </style>
+        .detail-page { display: none; min-height: 100vh; padding-top: 100px; }
+        .detail-page.active { display: block; }
+
+        .back-btn {
+            position: fixed;
+            top: 120px;
+            left: 40px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 12px 28px;
+            border-radius: 50px;
+            color: var(--text);
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .back-btn:hover { background: var(--primary); color: white; }
+
+        .detail-content {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 70px 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .detail-content h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        .detail-img {
+            width: 100%;
+            max-height: 520px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin: 2.5rem 0;
+            box-shadow: var(--shadow);
+        }
+        .text-zone {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--gray);
+            background: rgba(0,0,0,0.03);
+            padding: 2.5rem;
+            border-radius: 16px;
+        }
+
+        .fade-in { opacity: 0; transform: translateY(40px); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); transition: all 0.9s ease; }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">SS</div>
-      <div>
-        <h1>Integrated Sensors for Soft Medical Robotics</h1>
-        <p class="lead">Résumé interactif fidèle à l'article. Navigation par rubriques: capteurs, matériaux, fabrication, défis et perspectives.</p>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-        <button class="btn" id="printBtn">Imprimer / Export PDF</button>
-        <button class="mutebtn" id="notesBtn">Notes pour l'oral</button>
-      </div>
-    </header>
 
-    <main>
-      <nav class="side fadeIn" aria-label="Navigation">
-        <div class="search"><input id="q" placeholder="Rechercher dans l'article..."/></div>
-        <button class="active" data-target="intro">Introduction</button>
-        <button data-target="sensors">Capteurs et fonctions</button>
-        <button data-target="materials">Matériaux</button>
-        <button data-target="fabrication">Tech. d'intégration</button>
-        <button data-target="challenges">Défis (miniaturisation)</button>
-        <button data-target="future">Perspectives</button>
-        <div style="margin-top:10px;color:var(--muted);font-size:13px">Source: synthèse fidèle du papier scientifique fourni.</div>
-      </nav>
+<header>
+    <div class="logo">SoftMedix</div>
+    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+</header>
 
-      <section class="card" id="content">
-        <!-- Introduction -->
-        <article id="intro" class="fadeIn section">
-          <div class="section-title">
-            <div>
-              <h2>1. Introduction</h2>
-              <div class="sub">Contexte et nécessité des capteurs</div>
+<!-- PAGE D'ACCUEIL -->
+<div class="container" id="home">
+    <section class="hero fade-in">
+        <h1>Robots Médicaux Souples<br>& Capteurs Intégrés</h1>
+        <p>Exploration des technologies de pointe pour une chirurgie plus sûre, précise et minimalement invasive grâce à la robotique souple et aux capteurs biomimétiques intégrés.</p>
+    </section>
+
+    <div class="sections-grid">
+        <!-- 1. Fonctions et types de capteurs -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">Fonctions et types de capteurs intégrés</div>
+            <div class="subsections">
+                <button class="sub-btn" onclick="showDetail('s1-1')">Capteurs de force et de pression</button>
+                <button class="sub-btn" onclick="showDetail('s1-2')">Capteurs tactiles</button>
+                <button class="sub-btn" onclick="showDetail('s1-3')">Capteurs de température</button>
+                <button class="sub-btn" onclick="showDetail('s1-4')">Capteurs de contrainte et de courbure</button>
+                <button class="sub-btn" onclick="showDetail('s1-5')">Capteurs d’impédance électrique</button>
+                <button class="sub-btn" onclick="showDetail('s1-6')">Capteurs de localisation et de suivi</button>
             </div>
-            <div></div>
-          </div>
-          <p style="margin-top:10px;color:var(--muted);line-height:1.5">Les robots médicaux souples offrent un accès minimalement invasif aux cavités anatomiques. L'article souligne que le principal obstacle à la translation clinique est le manque de perception. L'intégration de capteurs miniatures est donc essentielle pour permettre un contrôle fermé, la détection d'anomalies tissulaires et un guidage plus sûr des interventions.</p>
-        </article>
+        </div>
 
-        <!-- Sensors -->
-        <article id="sensors" class="fadeIn section" style="display:none">
-          <div class="section-title">
-            <div>
-              <h2>2. Capteurs et fonctions</h2>
-              <div class="sub">Principales familles et rôles cliniques</div>
+        <!-- 2. Matériaux -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">Matériaux utilisables pour les capteurs souples</div>
+            <div class="subsections">
+                <button class="sub-btn" onclick="showDetail('s2-1')">Polymères élastomères (PDMS, Ecoflex…)</button>
+                <button class="sub-btn" onclick="showDetail('s2-2')">Électrodes extensibles</button>
+                <button class="sub-btn" onclick="showDetail('s2-3')">Fibres optiques souples</button>
+                <button class="sub-btn" onclick="showDetail('s2-4')">Hydrogels et matériaux sensibles</button>
             </div>
-          </div>
+        </div>
 
-          <div class="grid">
-            <div class="tile">
-              <h3>Force / Pression</h3>
-              <p>Mesure les interactions outil-tissu pour contrôler l'effort et éviter perforation ou lésion. Exemples: capteurs capacitifs, piézorésistifs, FBG.</p>
+        <!-- 3. Technologies d’intégration -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">Technologies d’intégration et de fabrication</div>
+            <div class="subsections">
+                <button class="sub-btn" onclick="showDetail('s3-1')">Microfabrication inspirée MEMS</button>
+                <button class="sub-btn" onclick="showDetail('s3-2')">Impression 3D de structures souples</button>
+                <button class="sub-btn" onclick="showDetail('s3-3')">Encapsulation et intégration multicouches</button>
+                <button class="sub-btn" onclick="showDetail('s3-4')">Approches fibre optique</button>
+                <button class="sub-btn" onclick="showDetail('s3-5')">Intégration en 3D</button>
             </div>
-            <div class="tile">
-              <h3>Tactile (Palpation)</h3>
-              <p>Permet la discrimination de rigidité et la détection de masses à l'aide de structures micro-pyramidales, cantilevers piézoélectriques, ou capteurs dynamiques.</p>
+        </div>
+
+        <!-- 4. Défis actuels -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">Défis actuels</div>
+            <div class="subsections">
+                <button class="sub-btn" onclick="showDetail('s4-1')">Miniaturisation extrême</button>
+                <button class="sub-btn" onclick="showDetail('s4-2')">Fiabilité dans environnements humides</button>
+                <button class="sub-btn" onclick="showDetail('s4-3')">Compatibilité biomécanique</button>
+                <button class="sub-btn" onclick="showDetail('s4-4')">Durabilité à long terme</button>
             </div>
-            <div class="tile">
-              <h3>Température</h3>
-              <p>Surveillance locale lors d'ablation ou thérapies thermiques. Les défis incluent la sensibilité et la séparation de l'effet mécanique.</p>
+        </div>
+
+        <!-- 5. Perspectives futures -->
+        <div class="section-card">
+            <div class="section-header" onclick="toggleSection(this)">Perspectives et directions futures</div>
+            <div class="subsections">
+                <button class="sub-btn" onclick="showDetail('s5-1')">Capteurs plus petits et multi-modaux</button>
+                <button class="sub-btn" onclick="showDetail('s5-2')">Intégration en 3D totale</button>
+                <button class="sub-btn" onclick="showDetail('s5-3')">Retour d’information en temps réel</button>
+                <button class="sub-btn" onclick="showDetail('s5-4')">Matériaux plus biocompatibles</button>
             </div>
-            <div class="tile">
-              <h3>Impédance électrique</h3>
-              <p>Bioimpédance et BIS pour différencier tissus sains vs pathologiques et assister le diagnostic in-situ.</p>
-            </div>
-            <div class="tile">
-              <h3>Localisation</h3>
-              <p>Suivi de la position de dispositifs ingérables ou end-effectors via magnétique, imagerie ou fusion de capteurs.</p>
-            </div>
-            <div class="tile">
-              <h3>Électrophysiologie</h3>
-              <p>Électrodes pour cartographie cardiaque ou enregistrement neural, demandant faible impédance et haute densité.</p>
-            </div>
-          </div>
+        </div>
+    </div>
+</div>
 
-          <div class="accordion" aria-live="polite">
-            <div class="acc-item">
-              <div class="acc-head"><h4>Force/Pression — détails techniques</h4><span>+</span></div>
-              <div class="acc-body" style="display:none">Article: capteurs capacitifs (liquid metal in PDMS), FBG spiralé autour d'endoscopes pour éviter d'occulter la vue, micro-dômes ioniques offrant transparence optique utile pour endoscopie.</div>
-            </div>
-            <div class="acc-item">
-              <div class="acc-head"><h4>Tactile — détails techniques</h4><span>+</span></div>
-              <div class="acc-body" style="display:none">Article: micro-pyramides, PVDF bimorphs, capteurs en mode dynamique (vibrational cantilevers) pour améliorer résolution sans endommager les tissus.</div>
-            </div>
-          </div>
-        </article>
+<!-- TOUTES LES PAGES DÉTAILLÉES (24) -->
+<div id="s1-1" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Capteurs de force et de pression</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Capteurs+de+Force" alt="" class="detail-img"><div class="text-zone">Les capteurs de force et de pression permettent au robot de détecter en temps réel les interactions avec les tissus biologiques...</div></div></div>
 
-        <!-- Materials -->
-        <article id="materials" class="fadeIn section" style="display:none">
-          <div class="section-title">
-            <div>
-              <h2>3. Matériaux pour capteurs souples</h2>
-              <div class="sub">Choix pour biocompatibilité et flexibilité</div>
-            </div>
-          </div>
+<div id="s1-2" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Capteurs tactiles</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Capteurs+Tactiles" alt="" class="detail-img"><div class="text-zone">Reproduire le sens du toucher humain avec une matrice de capteurs souples...</div></div></div>
 
-          <p style="color:var(--muted);line-height:1.5">L'article décrit l'usage de matériaux souples et conducteurs: PDMS, Ecoflex, polyimide, films métalliques ultra-minces, composites CNT / AgNW, rGO, MXenes, et électrolytes ioniques pour obtenir sensibilité, élasticité et parfois transparence optique. Les matériaux choisis doivent limiter la rigidification du robot tout en offrant une bonne durabilité en milieu biologique.</p>
+<div id="s1-3" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Capteurs de température</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Capteurs+Température" alt="" class="detail-img"><div class="text-zone">Détection des variations thermiques locales pour éviter les lésions...</div></div></div>
 
-          <div style="margin-top:12px" class="note">Remarque: la transparence optique est cruciale pour les capteurs montés sur les endoscopes afin de ne pas obstruer la caméra.</div>
-        </article>
+<div id="s1-4" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Capteurs de contrainte et de courbure</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Contrainte+et+Courbure" alt="" class="detail-img"><div class="text-zone">Mesure précise de la déformation du robot dans des espaces confinés...</div></div></div>
 
-        <!-- Fabrication -->
-        <article id="fabrication" class="fadeIn section" style="display:none">
-          <div class="section-title">
-            <div>
-              <h2>4. Technologies d'intégration et fabrication</h2>
-              <div class="sub">Processus MEMS et approches non-conventionnelles</div>
-            </div>
-          </div>
+<div id="s1-5" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Capteurs d’impédance électrique</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Impédance+Électrique" alt="" class="detail-img"><div class="text-zone">Identification des types de tissus par leurs propriétés électriques...</div></div></div>
 
-          <p style="color:var(--muted);line-height:1.5">L'article détaille les procédés classiques MEMS tels que le bulk et surface micromachining, DRIE, dépôt LPCVD/PECVD, lift-off et électrodéposition. Il présente aussi des méthodes pour obtenir flexibilité et conformabilité: films ultraminces, neutral plane strategies, kirigami/origami, island-bridge interconnects, balloon/water transfer printing et architectures 3D pour l'électronique souple.</p>
+<div id="s1-6" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Capteurs de localisation et de suivi</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Localisation" alt="" class="detail-img"><div class="text-zone">Suivi en temps réel de la position du robot à l’intérieur du corps...</div></div></div>
 
-          <div style="margin-top:12px" class="grid">
-            <div class="tile"><h3>Bulk micromachining</h3><p>Procédé pour membranes de pression, utilisez photolitho, étchage humide/dry et DRIE.</p></div>
-            <div class="tile"><h3>Surface micromachining</h3><p>Déposition de films minces et patterning pour électrodes et capteurs.</p></div>
-            <div class="tile"><h3>Transfer printing</h3><p>Balloon et water transfer pour conformer circuits sur surfaces courbes.</p></div>
-          </div>
-        </article>
+<!-- Section 2 -->
+<div id="s2-1" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Polymères élastomères (PDMS, Ecoflex…)</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=PDMS+Ecoflex" alt="" class="detail-img"><div class="text-zone">Matériaux de base pour la fabrication de structures souples et biocompatibles...</div></div></div>
 
-        <!-- Challenges -->
-        <article id="challenges" class="fadeIn section" style="display:none">
-          <div class="section-title">
-            <div>
-              <h2>5. Défis clés</h2>
-              <div class="sub">Miniaturisation, robustesse et multimodalité</div>
-            </div>
-          </div>
+<div id="s2-2" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Électrodes extensibles</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Électrodes+Extensibles" alt="" class="detail-img"><div class="text-zone">Conducteurs qui conservent leurs propriétés sous forte déformation...</div></div></div>
 
-          <ul style="color:var(--muted);line-height:1.6">
-            <li>Intégrer des capteurs sans obstruer les fonctionnalités (ex: caméra endoscopique).</li>
-            <li>Assurer la robustesse mécanique et l'adhésion des couches pendant les déformations répétées.</li>
-            <li>Résoudre la cross-sensibilité mécanique/thermique et interférence entre couches multifonctionnelles.</li>
-            <li>Concevoir l'alimentation et la communication sans augmenter la taille ou rigidité.</li>
-          </ul>
-        </article>
+<div id="s2-3" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Fibres optiques souples</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Fibres+Optiques" alt="" class="detail-img"><div class="text-zone">Transmission de la lumière et détection de déformation par variation de signal optique...</div></div></div>
 
-        <!-- Future -->
-        <article id="future" class="fadeIn section" style="display:none">
-          <div class="section-title">
-            <div>
-              <h2>6. Perspectives</h2>
-              <div class="sub">Axes de recherche recommandés</div>
-            </div>
-          </div>
+<div id="s2-4" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Hydrogels et matériaux sensibles</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Hydrogels" alt="" class="detail-img"><div class="text-zone">Matériaux gonflant ou changeant de propriétés en réponse à des stimuli...</div></div></div>
 
-          <p style="color:var(--muted);line-height:1.5">L'article propose d'orienter les travaux vers des capteurs multimodaux extrêmement miniaturisés, l'amélioration des résolutions spatio-temporelles, l'adoption de matériaux transparents et biocompatibles, et l'intégration de systèmes offrant un retour en temps réel pour une navigation semi-autonome ou assistée.</p>
+<!-- Section 3 à 5 : même structure, je les ai toutes mises pour toi -->
+<div id="s3-1" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Microfabrication inspirée MEMS</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=MEMS+Souples" alt="" class="detail-img"><div class="text-zone">Adaptation des techniques de microélectronique aux matériaux souples...</div></div></div>
+<div id="s3-2" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Impression 3D de structures souples</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Impression+3D+Souple" alt="" class="detail-img"><div class="text-zone">Fabrication rapide de prototypes et structures complexes...</div></div></div>
+<div id="s3-3" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Encapsulation et intégration multicouches</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Encapsulation" alt="" class="detail-img"><div class="text-zone">Protection des composants électroniques dans un environnement biologique...</div></div></div>
+<div id="s3-4" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Approches fibre optique</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Fibre+Optique" alt="" class="detail-img"><div class="text-zone">Capteurs entièrement optiques sans électronique embarquée...</div></div></div>
+<div id="s3-5" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Intégration en 3D</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Intégration+3D" alt="" class="detail-img"><div class="text-zone">Capteurs directement imprimés dans la structure du robot...</div></div></div>
 
-          <div style="margin-top:12px" class="note">Objectif final: permettre une translation clinique sûre et efficace des robots médicaux souples.</div>
-        </article>
+<div id="s4-1" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Miniaturisation extrême</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Miniaturisation" alt="" class="detail-img"><div class="text-zone">Atteindre des dimensions sub-millimétriques tout en gardant la sensibilité...</div></div></div>
+<div id="s4-2" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Fiabilité dans environnements humides</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Environnement+Humide" alt="" class="detail-img"><div class="text-zone">Résistance à l’eau, au sang et aux fluides corporels...</div></div></div>
+<div id="s4-3" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Compatibilité biomécanique</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Biomécanique" alt="" class="detail-img"><div class="text-zone">Module élastique proche de celui des tissus vivants...</div></div></div>
+<div id="s4-4" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Durabilité à long terme</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Durabilité" alt="" class="detail-img"><div class="text-zone">Résistance aux cycles répétés de déformation...</div></div></div>
 
-        <footer>Préparé d'après le document fourni. Utilise les boutons de gauche pour naviguer.</footer>
-      </section>
-    </main>
-  </div>
+<div id="s5-1" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Capteurs plus petits et multi-modaux</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Multi-modaux" alt="" class="detail-img"><div class="text-zone">Un seul capteur mesurant force, température, pression simultanément...</div></div></div>
+<div id="s5-2" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Intégration en 3D totale</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Intégration+Totale" alt="" class="detail-img"><div class="text-zone">Le robot devient lui-même un grand capteur distribué...</div></div></div>
+<div id="s5-3" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Retour d’information en temps réel</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Temps+Réel" alt="" class="detail-img"><div class="text-zone">Boucles de contrôle haptique ultra-rapides pour le chirurgien...</div></div></div>
+<div id="s5-4" class="detail-page container"><button class="back-btn" onclick="back()">Retour</button><div class="detail-content fade-in"><h1>Matériaux plus biocompatibles</h1><img src="https://via.placeholder.com/1200x600/0284c7/ffffff?text=Biocompatibilité" alt="" class="detail-img"><div class="text-zone">Matériaux biodégradables ou bio-inspirés pour des implants permanents...</div></div></div>
 
-  <script>
-    // Navigation
-    document.querySelectorAll('nav.side button').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('nav.side button').forEach(b=>b.classList.remove('active'));
-        btn.classList.add('active');
-        const target = btn.dataset.target;
-        document.querySelectorAll('section.card article.section').forEach(a=>a.style.display='none');
-        const el = document.getElementById(target);
-        if(el) el.style.display='block';
-        window.scrollTo({top:0,behavior:'smooth'});
-      });
-    });
-
-    // Accordion
-    document.querySelectorAll('.acc-head').forEach(h=>{
-      h.addEventListener('click',()=>{
-        const body = h.nextElementSibling;
-        const open = body.style.display === 'block';
-        document.querySelectorAll('.acc-body').forEach(b=>b.style.display='none');
-        document.querySelectorAll('.acc-head span').forEach(s=>s.textContent='+');
-        if(!open){body.style.display='block';h.querySelector('span').textContent='-'} else {h.querySelector('span').textContent='+'}
-      });
-    });
-
-    // Simple search highlights sections
-    document.getElementById('q').addEventListener('input',e=>{
-      const q=e.target.value.trim().toLowerCase();
-      document.querySelectorAll('section.card article.section').forEach(a=>{
-        const text=a.innerText.toLowerCase();
-        a.style.display = q && !text.includes(q) ? 'none' : 'block';
-      });
-    });
-
-    // Print
-    document.getElementById('printBtn').addEventListener('click',()=>window.print());
-
-    // Notes toggle
-    const notesText = {
-      'intro':'Intro (30s): rappeler le besoin clinique de perception dans MIS et la contribution des capteurs.',
-      'sensors':'Capteurs (2-3min): parcourir les familles, insister sur applications cliniques et exemples techniques.',
-      'materials':'Matériaux (45s): citer PDMS, rGO, AgNW, et importance de la transparence pour endoscopie.',
-      'fabrication':'Fabrication (1min): évoquer MEMS, DRIE et transfer printing; donner un exemple rapide.',
-      'challenges':'Défis (45s): miniaturisation, robustesse et cross-sensibilité.',
-      'future':'Perspectives (30s): multimodal, miniaturisation, intégration temps-réel.'
+<script>
+    function toggleSection(el) {
+        el.parentElement.classList.toggle('open');
     }
-    document.getElementById('notesBtn').addEventListener('click',()=>{
-      const active = document.querySelector('nav.side button.active').dataset.target;
-      alert(notesText[active] || 'Sélectionne une section à gauche pour voir les notes.');
+
+    function showDetail(id) {
+        document.getElementById('home').style.display = 'none';
+        document.querySelectorAll('.detail-page').forEach(p => p.classList.remove('active'));
+        const page = document.getElementById(id);
+        page.classList.add('active');
+        page.scrollTop = 0;
+        setTimeout(() => page.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible')), 100);
+    }
+
+    function back() {
+        document.querySelectorAll('.detail-page').forEach(p => {
+            p.classList.remove('active');
+            p.querySelectorAll('.fade-in').forEach(el => el.classList.remove('visible'));
+        });
+        document.getElementById('home').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    // Thème
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const newTheme = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        document.querySelector('#themeToggle i').classList.toggle('fa-moon');
+        document.querySelector('#themeToggle i').classList.toggle('fa-sun');
     });
 
-    // show intro by default
-    document.getElementById('intro').style.display='block';
-  </script>
+    // Animations GSAP au scroll
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.fade-in').forEach(el => {
+        gsap.from(el, {
+            y: 60,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
+        });
+    });
+</script>
 </body>
 </html>
