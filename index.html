@@ -132,7 +132,7 @@ header {
   padding-left: 2.2rem; /* léger décalage visuel au hover → très élégant */
 }
 
-/* Petite flèche à droite indiquant qu’il y a un sous-menu */
+/* Petite flèche à droite indiquant qu'il y a un sous-menu */
 .dropdown-item::after {
  display: none;
 }
@@ -418,67 +418,67 @@ header {
     <button id="section-btn">Explorer les Sections</button>
 
     <div class="dropdown-menu" id="dropdown">
-     <div class="dropdown-item">
+     <div class="dropdown-item" onclick="showSection('intro')">
       Introduction : Soft Robotics
       <div class="sub-menu">
-       <div class="sub-item" onclick="showSection('intro')">Introduction complète</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('intro')">Introduction complète</div>
       </div>
      </div>
 
-     <div class="dropdown-item">
+     <div class="dropdown-item" onclick="showSection('robots')">
       Robots médicaux souples
       <div class="sub-menu">
-       <div class="sub-item" onclick="showSection('robots', 'robots-endoscopes')">Endoscopes</div>
-       <div class="sub-item" onclick="showSection('robots', 'robots-catheters')">Cathéters</div>
-       <div class="sub-item" onclick="showSection('robots', 'robots-ingestibles')">Dispositifs ingérables</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('robots', 'robots-endoscopes')">Endoscopes</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('robots', 'robots-catheters')">Cathéters</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('robots', 'robots-ingestibles')">Dispositifs ingérables</div>
       </div>
      </div>
 
-     <div class="dropdown-item">
+     <div class="dropdown-item" onclick="showSection('sensors')">
       Capteurs biomédicaux
       <div class="sub-menu">
-       <div class="sub-item" onclick="showSection('sensors', 'sensors-force')">Force / Pression</div>
-       <div class="sub-item" onclick="showSection('sensors', 'sensors-tactile')">Tactile (Palpation)</div>
-       <div class="sub-item" onclick="showSection('sensors', 'sensors-temperature')">Température</div>
-       <div class="sub-item" onclick="showSection('sensors', 'sensors-impedance')">Impédance</div>
-       <div class="sub-item" onclick="showSection('sensors', 'sensors-localisation')">Localisation</div>
-       <div class="sub-item" onclick="showSection('sensors', 'sensors-electrophysiologie')">Électrophysiologie</div>
-       <div class="sub-item" onclick="showSection('sensors', 'sensors-mecanique')">Mécanique</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('sensors', 'sensors-force')">Force / Pression</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('sensors', 'sensors-tactile')">Tactile (Palpation)</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('sensors', 'sensors-temperature')">Température</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('sensors', 'sensors-impedance')">Impédance</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('sensors', 'sensors-localisation')">Localisation</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('sensors', 'sensors-electrophysiologie')">Électrophysiologie</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('sensors', 'sensors-mecanique')">Mécanique</div>
       </div>
      </div>
 
-     <div class="dropdown-item">
+     <div class="dropdown-item" onclick="showSection('materials')">
       Matériaux biocompatibles
       <div class="sub-menu">
-       <div class="sub-item" onclick="showSection('materials', 'materials-polymeres')">Polymères (PDMS, Ecoflex)</div>
-       <div class="sub-item" onclick="showSection('materials', 'materials-nano')">Nano-matériaux (rGO, CNT, AgNW)</div>
-       <div class="sub-item" onclick="showSection('materials', 'materials-semi')">Semi-conducteurs (SiC, IrOx)</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('materials', 'materials-polymeres')">Polymères (PDMS, Ecoflex)</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('materials', 'materials-nano')">Nano-matériaux (rGO, CNT, AgNW)</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('materials', 'materials-semi')">Semi-conducteurs (SiC, IrOx)</div>
       </div>
      </div>
 
-     <div class="dropdown-item">
+     <div class="dropdown-item" onclick="showSection('fabrication')">
       Fabrication & intégration
       <div class="sub-menu">
-       <div class="sub-item" onclick="showSection('fabrication', 'fabrication-micromachining')">Micromachining</div>
-       <div class="sub-item" onclick="showSection('fabrication', 'fabrication-transfer')">Transfer printing</div>
-       <div class="sub-item" onclick="showSection('fabrication', 'fabrication-3d')">Structures 3D (Kirigami/Origami)</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('fabrication', 'fabrication-micromachining')">Micromachining</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('fabrication', 'fabrication-transfer')">Transfer printing</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('fabrication', 'fabrication-3d')">Structures 3D (Kirigami/Origami)</div>
       </div>
      </div>
 
-     <div class="dropdown-item">
+     <div class="dropdown-item" onclick="showSection('challenges')">
       Défis biomédicaux
       <div class="sub-menu">
-       <div class="sub-item" onclick="showSection('challenges', 'challenges-miniaturisation')">Miniaturisation</div>
-       <div class="sub-item" onclick="showSection('challenges', 'challenges-robustesse')">Robustesse en milieu humide</div>
-       <div class="sub-item" onclick="showSection('challenges', 'challenges-multimodalite')">Multimodalité sans interférences</div>
-       <div class="sub-item" onclick="showSection('challenges', 'challenges-biocompatibilite')">Biocompatibilité et comm sans fil</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('challenges', 'challenges-miniaturisation')">Miniaturisation</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('challenges', 'challenges-robustesse')">Robustesse en milieu humide</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('challenges', 'challenges-multimodalite')">Multimodalité sans interférences</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('challenges', 'challenges-biocompatibilite')">Biocompatibilité et comm sans fil</div>
       </div>
      </div>
 
-     <div class="dropdown-item">
+     <div class="dropdown-item" onclick="showSection('future')">
       Perspectives en médecine
       <div class="sub-menu">
-       <div class="sub-item" onclick="showSection('future', 'future-perspectives')">Vers une robotique biomédicale avancée</div>
+       <div class="sub-item" onclick="event.stopPropagation(); showSection('future', 'future-perspectives')">Vers une robotique biomédicale avancée</div>
       </div>
      </div>
     </div>
@@ -497,7 +497,7 @@ header {
    <div class="home-content">
     <h1 class="home-title">Bienvenue sur SoftMedix</h1>
     <p class="home-description">Découvrez les dernières avancées en capteurs intégrés pour la robotique médicale souple. Cette revue biomédicale interactive explore les innovations qui rendent la chirurgie mini-invasive plus sûre, précise et bénéfique pour les patients.</p>
-    <button class="home-cta" onclick="showSection('intro')">Commencer l’exploration</button>
+    <button class="home-cta" onclick="showSection('intro')">Commencer l'exploration</button>
    </div>
   </div>
 
@@ -510,7 +510,7 @@ header {
      <h2>1. Introduction </h2>
      <p class="sub">Soft Robotics</p>
     </div>
-    <p class="intro-text">La soft robotics révolutionne la médecine en offrant des robots souples capables de se faufiler dans des espaces anatomiques étroits et complexes, impossibles d’accès pour les dispositifs rigides. Cette flexibilité inédite permet d’envisager des interventions moins invasives et plus précises. Cependant, ces robots restent confrontés au défi de percevoir avec exactitude les forces et l’environnement interne. L’intégration de capteurs miniaturisés répond à cette limite, améliorant la sécurité, la précision et le contrôle en temps réel.</p>
+    <p class="intro-text">La soft robotics révolutionne la médecine en offrant des robots souples capables de se faufiler dans des espaces anatomiques étroits et complexes, impossibles d'accès pour les dispositifs rigides. Cette flexibilité inédite permet d'envisager des interventions moins invasives et plus précises. Cependant, ces robots restent confrontés au défi de percevoir avec exactitude les forces et l'environnement interne. L'intégration de capteurs miniaturisés répond à cette limite, améliorant la sécurité, la précision et le contrôle en temps réel.</p>
     <div class="fact">Fait intéressant : Les robots comme da Vinci intègrent déjà des capteurs, mais les versions souples pourraient cibler des organes inaccessibles (ex : tractus gastro-intestinal) pour des diagnostics précoces de cancers.</div>
    </div>
 
@@ -526,11 +526,11 @@ header {
       <h3>Endoscopes souples</h3>
       <p>
       • Utilisés pour naviguer dans des cavités internes tout en préservant la vision.<br>
-      • Les capteurs doivent être transparents ou placés autour de la caméra pour ne pas obstruer l’image.<br>
-      • Intégrations citées dans l’article :<br>
+      • Les capteurs doivent être transparents ou placés autour de la caméra pour ne pas obstruer l'image.<br>
+      • Intégrations citées dans l'article :<br>
       &nbsp;&nbsp;– Fibres optiques FBG enroulées autour du tube<br>
-      &nbsp;&nbsp;– Micro-capteurs capacitifs transparents sur l’embout<br>
-      • Défi principal : intégrer des capteurs sans rigidifier le tube ni réduire l’angulation.
+      &nbsp;&nbsp;– Micro-capteurs capacitifs transparents sur l'embout<br>
+      • Défi principal : intégrer des capteurs sans rigidifier le tube ni réduire l'angulation.
       </p>
      </div>
      <img src="https://raw.githubusercontent.com/Douha03/SoftMedix/main/assets/images/endo.png" alt="Endoscopes">
@@ -541,10 +541,10 @@ header {
       <h3>Cathéters intelligents</h3>
       <p>
       • Structures très fines nécessitant des capteurs ultra-miniatures.<br>
-      • Capteurs utilisés dans l’article :<br>
+      • Capteurs utilisés dans l'article :<br>
       &nbsp;&nbsp;– Pression<br>
       &nbsp;&nbsp;– Force axiale<br>
-      &nbsp;&nbsp;– Capteurs d’impédance pour différencier les tissus<br>
+      &nbsp;&nbsp;– Capteurs d'impédance pour différencier les tissus<br>
       • Problème majeur : maintenir la flexibilité tout en intégrant plusieurs couches (électrodes, polymères, conducteurs).<br>
       • Risque souligné : augmentation de rigidité → danger de perforation vasculaire.
       </p>
@@ -559,11 +559,11 @@ header {
       <h3>Dispositifs ingérables (capsules)</h3>
       <p>
       • Plates-formes miniaturisées traversant le tube digestif pour diagnostic et mesure interne.<br>
-      • Capteurs les plus courants dans l’article :<br>
+      • Capteurs les plus courants dans l'article :<br>
       &nbsp;&nbsp;– Température pour suivi physiologique<br>
       &nbsp;&nbsp;– Bio-impédance pour caractérisation tissulaire<br>
       &nbsp;&nbsp;– Localisation magnétique ou optique pour suivi de trajectoire<br>
-      • Défi : énergie limitée, communication sans fil difficile et encapsulation complète pour résister à l’environnement digestif.
+      • Défi : énergie limitée, communication sans fil difficile et encapsulation complète pour résister à l'environnement digestif.
       </p>
 
      </div>
