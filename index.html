@@ -902,11 +902,53 @@ header {
   }
 
   // Recherche
+// Recherche améliorée
   document.getElementById('search-input').addEventListener('input', function(e) {
-   const term = e.target.value.toLowerCase();
-   document.querySelectorAll('.subsection, .intro-text, .fact, .note, h2, h3').forEach(el => {
-    el.style.display = el.textContent.toLowerCase().includes(term) ? '' : 'none';
+   const term = e.target.value.toLowerCase().trim();
+   
+   if (term === '') {
+    // Si la recherche est vide, retourner à l'accueil
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById('main-content').classList.remove('show');
+    document.querySelector('.home-hero').style.display = 'block';
+    return;
+   }
+   
+   // Masquer l'accueil et afficher le contenu
+   document.querySelector('.home-hero').style.display = 'none';
+   document.getElementById('main-content').classList.add('show');
+   
+   // Parcourir toutes les sections
+   let foundSomething = false;
+   document.querySelectorAll('.section').forEach(section => {
+    let sectionHasMatch = false;
+    
+    // Vérifier tous les éléments dans cette section
+    section.querySelectorAll('.subsection, .intro-text, .fact, .note, h2, h3, p').forEach(el => {
+     if (el.textContent.toLowerCase().includes(term)) {
+      el.style.display = '';
+      sectionHasMatch = true;
+      foundSomething = true;
+      
+      // Afficher aussi le parent subsection si c'est un élément enfant
+      let parent = el.closest('.subsection');
+      if (parent) parent.style.display = '';
+     } else {
+      // Masquer uniquement les subsections, pas les titres principaux
+      if (el.classList.contains('subsection')) {
+       el.style.display = 'none';
+      }
+     }
+    });
+    
+    // Afficher ou masquer la section entière
+    section.style.display = sectionHasMatch ? 'block' : 'none';
    });
+   
+   // Si aucun résultat, afficher un message
+   if (!foundSomething) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+   }
   });
  </script>
 </body>
